@@ -25,23 +25,11 @@ Supported authentication methods:
 
 All authentication inputs should be provided by encrypted secrets environment variables.
 
-## Usage
+## Usage 
 
-### Client Configuration File
-
-Following certificates must be set in your client configuration file according to your authentication method.
-
-- Username & password auth
-  - CA certificate
-- Client certificate auth
-  - CA certificate
-  - Client certificate
-
-See example [client.ovpn](https://github.com/kota65535/github-openvpn-connect-action/tree/master/.github/workflows/client.ovpn).
-
-
-### Typical Usage 
-
+- Create client configuration file based on the [official sample](https://github.com/OpenVPN/openvpn/blob/master/sample/sample-config-files/client.conf).
+  It is recommended to use inline certificates to include them directly in configuration file like [this](https://github.com/kota65535/github-openvpn-connect-action/tree/master/.github/workflows/client.ovpn).
+- Usage in your workflow is like following:
 ```yaml
       - name: Checkout
         uses: actions/checkout@v2
@@ -57,4 +45,5 @@ See example [client.ovpn](https://github.com/kota65535/github-openvpn-connect-ac
           tls_auth_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
       - name: Build something
         run: ./gradlew clean build
+      # The openvpn process is automatically terminated in post-action phase
 ```
