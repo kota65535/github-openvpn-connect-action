@@ -1,0 +1,48 @@
+{
+  "name": "github-openvpn-connect-action",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "ncc build src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kota65535/github-openvpn-connect-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kota65535/github-openvpn-connect-action/issues"
+  },
+  "homepage": "https://github.com/kota65535/github-openvpn-connect-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "shelljs.exec": "^1.1.8",
+    "tail": "^2.0.4"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.24.1",
+    "eslint": "^7.12.0",
+    "eslint-config-standard": "^15.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.2",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run build && git add ."
+    }
+  },
+  "lint-staged": {
+    "src/*.js": [
+      "eslint --fix"
+    ]
+  }
+}

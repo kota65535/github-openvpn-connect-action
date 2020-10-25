@@ -1,0 +1,25 @@
+name: "OpenVPN-Connect"
+description: "connect to OpenVPN server"
+branding:
+  icon: "lock"
+  color: "green"
+inputs:
+  config_file:
+    description: "Location of OpenVPN client config file"
+    required: true
+  username:
+    description: "Username"
+    required: false
+  password:
+    description: "Password"
+    required: false
+  tls_auth_key:
+    description: "Pre-shared secret for TLS-auth HMAC signature"
+    required: false
+  client_key:
+    description: "Local peer's private key"
+    required: false
+runs:
+  using: "node12"
+  main: "dist/index.js"
+  post: "dist/index.js"

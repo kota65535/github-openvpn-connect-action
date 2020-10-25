@@ -86,7 +86,8 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# commect out to use dist/index.js to run github action
+# dist
 
 # Gatsby files
 .cache/

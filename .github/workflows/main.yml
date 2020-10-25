@@ -1,0 +1,21 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Typical Usage of OpenVPN
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install OpenVPN
+        run: sudo apt install -y openvpn openvpn-systemd-resolved
+      - name: Connect to VPN
+        uses: "./"
+        with:
+          config_file: .github/workflows/client.ovpn
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          client_key: ${{ secrets.OVPN_CLIENT_KEY }}
+          tls_auth_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
+      - name: Check if connected
+        run: curl -v http://172.28.4.167:8080
