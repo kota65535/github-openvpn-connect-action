@@ -13,8 +13,8 @@ jobs:
         uses: "./"
         with:
           config_file: .github/workflows/client.ovpn
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          username: ${{ secrets.OVPN_USERNAME }}
+          password: ${{ secrets.OVPN_PASSWORD }}
           client_key: ${{ secrets.OVPN_CLIENT_KEY }}
           tls_auth_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
       - name: Check if connected

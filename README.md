@@ -39,8 +39,8 @@ All authentication inputs should be provided by encrypted secrets environment va
         uses: "kota65535/github-openvpn-connect-action@v1"
         with:
           config_file: ./github/workflows/client.ovpn
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          username: ${{ secrets.OVPN_USERNAME }}
+          password: ${{ secrets.OVPN_PASSWORD }}
           client_key: ${{ secrets.OVPN_CLIENT_KEY }}
           tls_auth_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
       - name: Build something
