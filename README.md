@@ -36,7 +36,7 @@ All authentication inputs should be provided by encrypted secrets environment va
       - name: Install OpenVPN
         run: sudo apt install -y openvpn openvpn-systemd-resolved
       - name: Connect to VPN
-        uses: "kota65535/github-openvpn-connect-action@master"
+        uses: "kota65535/github-openvpn-connect-action@v1"
         with:
           config_file: ./github/workflows/client.ovpn
           username: ${{ secrets.USERNAME }}
