@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kota65535/github-openvpn-connect-action.git"
+    "url": "git+https://github.com/eliberty/github-openvpn-connect-action.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kota65535/github-openvpn-connect-action/issues"
+    "url": "https://github.com/eliberty/github-openvpn-connect-action/issues"
   },
-  "homepage": "https://github.com/kota65535/github-openvpn-connect-action#readme",
+  "homepage": "https://github.com/eliberty/github-openvpn-connect-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
