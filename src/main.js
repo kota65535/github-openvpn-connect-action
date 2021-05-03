@@ -27,8 +27,11 @@ const run = () => {
   // client certificate auth
   if (clientKey) {
     fs.appendFileSync(configFile, 'key client.key\n')
-    fs.appendFileSync(configFile, 'tls-auth ta.key 1\n')
     fs.writeFileSync('client.key', clientKey)
+  }
+
+  if (tlsAuthKey) {
+    fs.appendFileSync(configFile, 'tls-auth ta.key 1\n')
     fs.writeFileSync('ta.key', tlsAuthKey)
   }
 
