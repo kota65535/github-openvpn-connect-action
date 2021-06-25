@@ -17,7 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install OpenVPN
-        run: sudo apt install -y openvpn openvpn-systemd-resolved
+        run: |
+          sudo apt update
+          sudo apt install -y openvpn openvpn-systemd-resolved
       - name: Connect to VPN
         uses: "./"
         with:

@@ -34,7 +34,9 @@ All authentication inputs should be provided by encrypted secrets environment va
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install OpenVPN
-        run: sudo apt install -y openvpn openvpn-systemd-resolved
+        run: |
+          sudo apt update
+          sudo apt install -y openvpn openvpn-systemd-resolved
       - name: Connect to VPN
         uses: "kota65535/github-openvpn-connect-action@v1"
         with:
