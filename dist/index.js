@@ -879,6 +879,7 @@ const run = (pid) => {
     return
   }
   try {
+    // suppress warning even if the process already killed
     exec(`sudo kill ${pid} || true`)
   } catch (error) {
     core.warning(error.message)
