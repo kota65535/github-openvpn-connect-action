@@ -764,15 +764,17 @@ const isPost = !!process.env.STATE_isPost
 
 if (isPost) {
   // cleanup
+  const pid = process.env.STATE_pid
   try {
-    post()
+    post(pid)
   } catch (error) {
     core.setFailed(error.message)
   }
 } else {
   // main
   try {
-    main()
+    const pid = main()
+    coreCommand.issueCommand('save-state', { name: 'pid' }, pid)
   } catch (error) {
     core.setFailed(error.message)
   } finally {
@@ -835,7 +837,7 @@ const run = () => {
   const tail = new Tail('openvpn.log')
 
   try {
-    exec(`sudo openvpn --config ${configFile} --daemon --log openvpn.log`)
+    exec(`sudo openvpn --config ${configFile} --daemon --log openvpn.log --writepid openvpn.pid`)
   } catch (error) {
     core.error(fs.readFileSync('openvpn.log', 'utf8'))
     tail.unwatch()
@@ -855,6 +857,10 @@ const run = () => {
     core.setFailed('VPN connection failed.')
     tail.unwatch()
   }, 15000)
+
+  const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
+  core.info(`Daemon PID: ${pid}`)
+  return pid
 }
 
 module.exports = run
@@ -868,9 +874,13 @@ module.exports = run
 const core = __webpack_require__(186)
 const exec = __webpack_require__(264)
 
-const run = () => {
+const run = (pid) => {
+  if (!pid) {
+    return
+  }
   try {
-    exec('sudo killall openvpn')
+    // suppress warning even if the process already killed
+    exec(`sudo kill ${pid} || true`)
   } catch (error) {
     core.warning(error.message)
   }

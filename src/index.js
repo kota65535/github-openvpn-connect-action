@@ -7,15 +7,17 @@ const isPost = !!process.env.STATE_isPost
 
 if (isPost) {
   // cleanup
+  const pid = process.env.STATE_pid
   try {
-    post()
+    post(pid)
   } catch (error) {
     core.setFailed(error.message)
   }
 } else {
   // main
   try {
-    main()
+    const pid = main()
+    coreCommand.issueCommand('save-state', { name: 'pid' }, pid)
   } catch (error) {
     core.setFailed(error.message)
   } finally {

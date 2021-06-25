@@ -46,7 +46,7 @@ const run = () => {
   const tail = new Tail('openvpn.log')
 
   try {
-    exec(`sudo openvpn --config ${configFile} --daemon --log openvpn.log`)
+    exec(`sudo openvpn --config ${configFile} --daemon --log openvpn.log --writepid openvpn.pid`)
   } catch (error) {
     core.error(fs.readFileSync('openvpn.log', 'utf8'))
     tail.unwatch()
@@ -66,6 +66,10 @@ const run = () => {
     core.setFailed('VPN connection failed.')
     tail.unwatch()
   }, 15000)
+
+  const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
+  core.info(`Daemon PID: ${pid}`)
+  return pid
 }
 
 module.exports = run
