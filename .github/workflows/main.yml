@@ -1,6 +1,13 @@
 name: Test
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - README.md
+  pull_request:
+
 
 jobs:
   hello_world_job:
