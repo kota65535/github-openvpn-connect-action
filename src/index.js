@@ -4,7 +4,7 @@ const main = require('./main')
 const post = require('./post')
 
 const isPost = !!process.env.STATE_isPost
-const pid = !!process.env.STATE_pid
+const pid = process.env.STATE_pid
 
 if (isPost) {
   // cleanup
