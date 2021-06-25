@@ -858,7 +858,7 @@ const run = () => {
     tail.unwatch()
   }, 15000)
 
-  const pid = fs.readFileSync("openvpn.pid", 'utf8')
+  const pid = fs.readFileSync('openvpn.pid', 'utf8')
   core.info(`Daemon PID: ${pid}`)
   return pid
 }
@@ -879,7 +879,7 @@ const run = (pid) => {
     return
   }
   try {
-    exec(`sudo kill ${pid}`)
+    exec(`sudo kill ${pid} || true`)
   } catch (error) {
     core.warning(error.message)
   }

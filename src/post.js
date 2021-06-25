@@ -6,7 +6,7 @@ const run = (pid) => {
     return
   }
   try {
-    exec(`sudo kill ${pid}`)
+    exec(`sudo kill ${pid} || true`)
   } catch (error) {
     core.warning(error.message)
   }
