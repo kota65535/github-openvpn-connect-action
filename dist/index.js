@@ -858,7 +858,7 @@ const run = () => {
     tail.unwatch()
   }, 15000)
 
-  const pid = fs.readFileSync('openvpn.pid', 'utf8')
+  const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
   core.info(`Daemon PID: ${pid}`)
   return pid
 }
