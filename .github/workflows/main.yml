@@ -28,3 +28,7 @@ jobs:
           tls_auth_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
       - name: Check if connected
         run: curl -v http://172.28.4.187:8080
+      - name: kill manually
+        run: |
+          sudo killall openvpn
+
