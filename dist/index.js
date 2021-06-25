@@ -763,8 +763,8 @@ const post = __webpack_require__(303)
 const isPost = !!process.env.STATE_isPost
 
 if (isPost) {
-  const pid = process.env.STATE_pid
   // cleanup
+  const pid = process.env.STATE_pid
   try {
     post(pid)
   } catch (error) {

@@ -6,8 +6,8 @@ const post = require('./post')
 const isPost = !!process.env.STATE_isPost
 
 if (isPost) {
-  const pid = process.env.STATE_pid
   // cleanup
+  const pid = process.env.STATE_pid
   try {
     post(pid)
   } catch (error) {
