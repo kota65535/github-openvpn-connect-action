@@ -1,9 +1,12 @@
 const core = require('@actions/core')
 const exec = require('./exec')
 
-const run = () => {
+const run = (pid) => {
+  if (!pid) {
+    return
+  }
   try {
-    exec('sudo killall openvpn')
+    exec(`sudo kill ${pid}`)
   } catch (error) {
     core.warning(error.message)
   }

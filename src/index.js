@@ -4,18 +4,20 @@ const main = require('./main')
 const post = require('./post')
 
 const isPost = !!process.env.STATE_isPost
+const pid = !!process.env.STATE_pid
 
 if (isPost) {
   // cleanup
   try {
-    post()
+    post(pid)
   } catch (error) {
     core.setFailed(error.message)
   }
 } else {
   // main
   try {
-    main()
+    const pid = main()
+    coreCommand.issueCommand('save-state', { name: 'pid' }, pid)
   } catch (error) {
     core.setFailed(error.message)
   } finally {
