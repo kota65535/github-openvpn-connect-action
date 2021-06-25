@@ -1,4 +1,6 @@
-on: [push]
+name: Test
+
+on: [push, pull_request]
 
 jobs:
   hello_world_job:
