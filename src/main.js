@@ -3,7 +3,7 @@ const core = require('@actions/core')
 const exec = require('./exec')
 const Tail = require('tail').Tail
 
-const run = () => {
+const run = (callback) => {
   const configFile = core.getInput('config_file').trim()
   const username = core.getInput('username').trim()
   const password = core.getInput('password').trim()
@@ -56,9 +56,11 @@ const run = () => {
   tail.on('line', (data) => {
     core.info(data)
     if (data.includes('Initialization Sequence Completed')) {
-      core.info('VPN connected successfully.')
       tail.unwatch()
       clearTimeout(timer)
+      const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
+      core.info(`VPN connected successfully. Daemon PID: ${pid}`)
+      callback(pid)
     }
   })
 
@@ -66,10 +68,6 @@ const run = () => {
     core.setFailed('VPN connection failed.')
     tail.unwatch()
   }, 15000)
-
-  const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
-  core.info(`Daemon PID: ${pid}`)
-  return pid
 }
 
 module.exports = run
