@@ -2,7 +2,6 @@ const fs = require('fs')
 const core = require('@actions/core')
 const exec = require('./exec')
 const Tail = require('tail').Tail
-const chokidar = require('chokidar')
 
 const run = (callback) => {
   const configFile = core.getInput('config_file').trim()
@@ -46,13 +45,6 @@ const run = (callback) => {
   fs.writeFileSync('openvpn.log', '')
   const tail = new Tail('openvpn.log')
 
-  const watcher = chokidar.watch('openvpn.pid', { usePolling: true })
-  watcher.on('add', path => {
-    const pid = fs.readFileSync(path, 'utf8').trim()
-    watcher.close().then(() => core.info(`Daemon PID: ${pid}`))
-    callback(pid)
-  })
-
   try {
     exec(`sudo openvpn --config ${configFile} --daemon --log openvpn.log --writepid openvpn.pid`)
   } catch (error) {
@@ -64,9 +56,11 @@ const run = (callback) => {
   tail.on('line', (data) => {
     core.info(data)
     if (data.includes('Initialization Sequence Completed')) {
-      core.info('VPN connected successfully.')
       tail.unwatch()
       clearTimeout(timer)
+      const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
+      core.info(`VPN connected successfully. Daemon PID: ${pid}`)
+      callback(pid)
     }
   })
 
