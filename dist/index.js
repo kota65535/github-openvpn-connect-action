@@ -773,8 +773,9 @@ if (isPost) {
 } else {
   // main
   try {
-    const pid = main()
-    coreCommand.issueCommand('save-state', { name: 'pid' }, pid)
+    main(pid => {
+      coreCommand.issueCommand('save-state', { name: 'pid' }, pid)
+    })
   } catch (error) {
     core.setFailed(error.message)
   } finally {
@@ -794,7 +795,7 @@ const core = __webpack_require__(186)
 const exec = __webpack_require__(264)
 const Tail = __webpack_require__(824)/* .Tail */ .x
 
-const run = () => {
+const run = (callback) => {
   const configFile = core.getInput('config_file').trim()
   const username = core.getInput('username').trim()
   const password = core.getInput('password').trim()
@@ -858,9 +859,13 @@ const run = () => {
     tail.unwatch()
   }, 15000)
 
-  const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
-  core.info(`Daemon PID: ${pid}`)
-  return pid
+  fs.watch('./', (event, filename) => {
+    if (event === 'change' && filename === 'openvpn.pid') {
+      const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
+      core.info(`Daemon PID: ${pid}`)
+      callback(pid)
+    }
+  })
 }
 
 module.exports = run

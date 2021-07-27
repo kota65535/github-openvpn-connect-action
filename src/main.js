@@ -3,7 +3,7 @@ const core = require('@actions/core')
 const exec = require('./exec')
 const Tail = require('tail').Tail
 
-const run = () => {
+const run = (callback) => {
   const configFile = core.getInput('config_file').trim()
   const username = core.getInput('username').trim()
   const password = core.getInput('password').trim()
@@ -67,9 +67,13 @@ const run = () => {
     tail.unwatch()
   }, 15000)
 
-  const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
-  core.info(`Daemon PID: ${pid}`)
-  return pid
+  fs.watch('./', (event, filename) => {
+    if (event === 'change' && filename === 'openvpn.pid') {
+      const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
+      core.info(`Daemon PID: ${pid}`)
+      callback(pid)
+    }
+  })
 }
 
 module.exports = run
