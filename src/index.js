@@ -16,9 +16,7 @@ if (isPost) {
 } else {
   // main
   try {
-    main(pid => {
-      coreCommand.issueCommand('save-state', { name: 'pid' }, pid)
-    })
+    main(pid => coreCommand.issueCommand('save-state', { name: 'pid' }, pid))
   } catch (error) {
     core.setFailed(error.message)
   } finally {
