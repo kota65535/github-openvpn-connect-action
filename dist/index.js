@@ -7392,7 +7392,7 @@ const run = (callback) => {
   fs.writeFileSync('openvpn.log', '')
   const tail = new Tail('openvpn.log')
 
-  const watcher = chokidar.watch('openvpn.pid')
+  const watcher = chokidar.watch('openvpn.pid', { usePolling: true })
   watcher.on('add', path => {
     const pid = fs.readFileSync(path, 'utf8').trim()
     watcher.close().then(() => core.info(`Daemon PID: ${pid}`))
