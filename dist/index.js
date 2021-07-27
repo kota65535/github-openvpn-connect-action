@@ -7392,6 +7392,13 @@ const run = (callback) => {
   fs.writeFileSync('openvpn.log', '')
   const tail = new Tail('openvpn.log')
 
+  const watcher = chokidar.watch('openvpn.pid')
+  watcher.on('add', path => {
+    const pid = fs.readFileSync(path, 'utf8').trim()
+    watcher.close().then(() => core.info(`Daemon PID: ${pid}`))
+    callback(pid)
+  })
+
   try {
     exec(`sudo openvpn --config ${configFile} --daemon --log openvpn.log --writepid openvpn.pid`)
   } catch (error) {
@@ -7413,13 +7420,6 @@ const run = (callback) => {
     core.setFailed('VPN connection failed.')
     tail.unwatch()
   }, 15000)
-
-  const watcher = chokidar.watch('openvpn.pid')
-  watcher.on('add', path => {
-    const pid = fs.readFileSync(path, 'utf8').trim()
-    watcher.close().then(() => core.info(`Daemon PID: ${pid}`))
-    callback(pid)
-  })
 }
 
 module.exports = run
