@@ -2,6 +2,7 @@ const fs = require('fs')
 const core = require('@actions/core')
 const exec = require('./exec')
 const Tail = require('tail').Tail
+const chokidar = require('chokidar')
 
 const run = (callback) => {
   const configFile = core.getInput('config_file').trim()
@@ -67,12 +68,11 @@ const run = (callback) => {
     tail.unwatch()
   }, 15000)
 
-  fs.watch('./', (event, filename) => {
-    if (event === 'change' && filename === 'openvpn.pid') {
-      const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
-      core.info(`Daemon PID: ${pid}`)
-      callback(pid)
-    }
+  const watcher = chokidar.watch('openvpn.pid')
+  watcher.on('add', path => {
+    const pid = fs.readFileSync(path, 'utf8').trim()
+    watcher.close().then(() => core.info(`Daemon PID: ${pid}`))
+    callback(pid)
   })
 }
 

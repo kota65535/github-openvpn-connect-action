@@ -21,6 +21,7 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
+    "chokidar": "^3.5.2",
     "shelljs.exec": "^1.1.8",
     "tail": "^2.0.4"
   },
