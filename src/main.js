@@ -35,10 +35,6 @@ const run = (callback) => {
     fs.writeFileSync('ta.key', tlsAuthKey)
   }
 
-  core.info('========== begin configuration ==========')
-  core.info(fs.readFileSync(configFile, 'utf8'))
-  core.info('=========== end configuration ===========')
-
   // 2. Run openvpn
 
   // prepare log file
