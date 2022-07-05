@@ -19,6 +19,12 @@ inputs:
   client_key:
     description: "Local peer's private key"
     required: false
+  client_cert:
+    description: "Local peer's client certificate"
+    required: false
+  ca_cert:
+    description: "Local peer's certificate authority"
+    required: false
 runs:
   using: "node12"
   main: "dist/index.js"
