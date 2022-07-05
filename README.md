@@ -24,6 +24,8 @@ Supported authentication methods:
 | `password` | Password | Username-password auth |
 | `client_key` | Local peer's private key | Client certificate auth |
 | `tls_auth_key` | Pre-shared secret for TLS-auth HMAC signature | Optional |
+|  ca_cert   | Certificate authority | Optional |
+|  client_cert | Client certificate | Optional |
 
 **Note: It is strongly recommended that you provide all credentials
 via [encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets).**
@@ -50,6 +52,8 @@ via [encrypted secrets](https://docs.github.com/en/actions/security-guides/encry
           username: ${{ secrets.OVPN_USERNAME }}
           password: ${{ secrets.OVPN_PASSWORD }}
           client_key: ${{ secrets.OVPN_CLIENT_KEY }}
+          ca_cert: ${{ secrets.OVPN_CA_CERT }}
+          client_cert: ${{ secrets.OVPN_CLIENT_CERT }}
           tls_auth_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
       - name: Build something
         run: ./gradlew clean build

@@ -798,6 +798,8 @@ const run = (callback) => {
   const username = core.getInput('username').trim()
   const password = core.getInput('password').trim()
   const clientKey = core.getInput('client_key').trim()
+  const caCert = core.getInput('ca_cert').trim()
+  const clientCert = core.getInput('client_cert').trim()
   const tlsAuthKey = core.getInput('tls_auth_key').trim()
 
   if (!fs.existsSync(configFile)) {
@@ -814,10 +816,22 @@ const run = (callback) => {
     fs.writeFileSync('up.txt', [username, password].join('\n'))
   }
 
-  // client certificate auth
+  // client key
   if (clientKey) {
     fs.appendFileSync(configFile, 'key client.key\n')
     fs.writeFileSync('client.key', clientKey)
+  }
+
+  // ca certificate auth
+  if (caCert) {
+    fs.appendFileSync(configFile, 'ca ca_cert.key\n')
+    fs.writeFileSync('ca_cert.key', caCert)
+  }
+
+  // client certificate
+  if (clientCert) {
+    fs.appendFileSync(configFile, 'cert client_cert.key\n')
+    fs.writeFileSync('client_cert.key', clientCert)
   }
 
   if (tlsAuthKey) {
