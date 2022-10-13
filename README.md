@@ -1,6 +1,6 @@
 # github-openvpn-connect-action
 
-Github action for connecting to OpenVPN server.
+GitHub Action for connecting to OpenVPN server.
 
 ## Inputs
 
@@ -38,7 +38,7 @@ via [encrypted secrets](https://docs.github.com/en/actions/security-guides/encry
 
 ```yaml
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install OpenVPN
         run: |
           sudo apt update
