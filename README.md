@@ -44,7 +44,7 @@ via [encrypted secrets](https://docs.github.com/en/actions/security-guides/encry
           sudo apt update
           sudo apt install -y openvpn openvpn-systemd-resolved
       - name: Connect to VPN
-        uses: "kota65535/github-openvpn-connect-action@v1"
+        uses: "kota65535/github-openvpn-connect-action@v2"
         with:
           config_file: ./github/workflows/client.ovpn
           username: ${{ secrets.OVPN_USERNAME }}
