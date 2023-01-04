@@ -34,8 +34,8 @@ jobs:
       - name: Update the major version tag
         run: |
           set -x
-          echo "MAJOR_VERSION=$(perl -ne 'print $1 if /^(.*?)\.(.*?)\.(.*?)$/' <<< '${{ github.event.inputs.version }}')"
-          git tag -f v${MAJOR_VERSION}
+          MAJOR_VERSION=$(perl -ne 'print $1 if /^(.*?)\.(.*?)\.(.*?)$/' <<< '${{ github.event.inputs.version }}')
+          git tag -f "v${MAJOR_VERSION}"
       - name: Push them
         run: |
           set -x
