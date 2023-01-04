@@ -31,10 +31,6 @@
     "eslint": "7.12.0",
     "eslint-config-prettier": "8.6.0",
     "eslint-config-standard": "15.0.1",
-    "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-promise": "4.2.1",
-    "eslint-plugin-standard": "4.0.2",
     "husky": "4.3.0",
     "lint-staged": "10.4.2",
     "prettier": "2.8.1"
