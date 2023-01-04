@@ -3399,15 +3399,14 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const core = __nccwpck_require__(186);
-const coreCommand = __nccwpck_require__(241);
 const main = __nccwpck_require__(713);
 const post = __nccwpck_require__(303);
 
-const isPost = !!process.env.STATE_isPost;
+const isPost = core.getState("isPost");
 
 if (isPost) {
   // cleanup
-  const pid = process.env.STATE_pid;
+  const pid = core.getState("pid");
   try {
     post(pid);
   } catch (error) {
@@ -3416,12 +3415,12 @@ if (isPost) {
 } else {
   // main
   try {
-    main((pid) => coreCommand.issueCommand("save-state", { name: "pid" }, pid));
+    main((pid) => core.saveState("pid", pid));
   } catch (error) {
     core.setFailed(error.message);
   } finally {
     // cf. https://github.com/actions/checkout/blob/main/src/state-helper.ts
-    coreCommand.issueCommand("save-state", { name: "isPost" }, "true");
+    core.saveState("isPost", "true");
   }
 }
 
