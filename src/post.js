@@ -1,16 +1,16 @@
-const core = require('@actions/core')
-const exec = require('./exec')
+const core = require("@actions/core");
+const exec = require("./exec");
 
 const run = (pid) => {
   if (!pid) {
-    return
+    return;
   }
   try {
     // suppress warning even if the process already killed
-    exec(`sudo kill ${pid} || true`)
+    exec(`sudo kill ${pid} || true`);
   } catch (error) {
-    core.warning(error.message)
+    core.warning(error.message);
   }
-}
+};
 
-module.exports = run
+module.exports = run;
