@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Released version
+        type: string
+        required: true
+
+
+jobs:
+  show-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show github context object
+        run: echo $JSON
+        env:
+          JSON: ${{ toJSON(github) }}
+  
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure git
+        run: |
+          git config --global user.name "Tomohiko Ozawa"
+          git config --global user.email "kota65535@gmail.com"
+      - name: Get major version
+        run: |
+          set -x
+          echo "MAJOR_VERSION=$(perl -ne 'print $1 if /^(.*?)\.(.*?)\.(.*?)$/' <<< '${{ github.event.inputs.version }}')" >> $GITHUB_ENV
+      - name: Run npm version
+        run: |
+          set -x
+          npm version ${{ inputs.version }}
+      - name: Update the major version tag
+        run: |
+          set -x
+          git tag -f v${{ env.MAJOR_VERSION }}
+      - name: Push the version commit and tags
+        run: |
+          set -x
+          git pull --rebase
+          git push origin HEAD
+          git push origin :v${{ env.MAJOR_VERSION }}
+          git push --tags
