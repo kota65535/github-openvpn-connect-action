@@ -734,20 +734,20 @@ exports.x = Tail;
 /***/ 264:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const shelljsExec = __webpack_require__(915)
-const core = __webpack_require__(186)
+const shelljsExec = __webpack_require__(915);
+const core = __webpack_require__(186);
 
 const exec = (cmd) => {
-  core.info(`running command: ${cmd}`)
-  const res = shelljsExec(cmd)
+  core.info(`running command: ${cmd}`);
+  const res = shelljsExec(cmd);
   if (res.code !== 0) {
-    core.warning(res.stdout)
-    throw new Error(`command: ${cmd} returned ${res.code}`)
+    core.warning(res.stdout);
+    throw new Error(`command: ${cmd} returned ${res.code}`);
   }
-  core.info(res.stdout)
-}
+  core.info(res.stdout);
+};
 
-module.exports = exec
+module.exports = exec;
 
 
 /***/ }),
@@ -755,30 +755,30 @@ module.exports = exec
 /***/ 351:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-const core = __webpack_require__(186)
-const coreCommand = __webpack_require__(241)
-const main = __webpack_require__(713)
-const post = __webpack_require__(303)
+const core = __webpack_require__(186);
+const coreCommand = __webpack_require__(241);
+const main = __webpack_require__(713);
+const post = __webpack_require__(303);
 
-const isPost = !!process.env.STATE_isPost
+const isPost = !!process.env.STATE_isPost;
 
 if (isPost) {
   // cleanup
-  const pid = process.env.STATE_pid
+  const pid = process.env.STATE_pid;
   try {
-    post(pid)
+    post(pid);
   } catch (error) {
-    core.setFailed(error.message)
+    core.setFailed(error.message);
   }
 } else {
   // main
   try {
-    main(pid => coreCommand.issueCommand('save-state', { name: 'pid' }, pid))
+    main((pid) => coreCommand.issueCommand("save-state", { name: "pid" }, pid));
   } catch (error) {
-    core.setFailed(error.message)
+    core.setFailed(error.message);
   } finally {
     // cf. https://github.com/actions/checkout/blob/main/src/state-helper.ts
-    coreCommand.issueCommand('save-state', { name: 'isPost' }, 'true')
+    coreCommand.issueCommand("save-state", { name: "isPost" }, "true");
   }
 }
 
@@ -788,79 +788,79 @@ if (isPost) {
 /***/ 713:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const fs = __webpack_require__(747)
-const core = __webpack_require__(186)
-const exec = __webpack_require__(264)
-const Tail = __webpack_require__(824)/* .Tail */ .x
+const fs = __webpack_require__(747);
+const core = __webpack_require__(186);
+const exec = __webpack_require__(264);
+const Tail = __webpack_require__(824)/* .Tail */ .x;
 
 const run = (callback) => {
-  const configFile = core.getInput('config_file').trim()
-  const username = core.getInput('username').trim()
-  const password = core.getInput('password').trim()
-  const clientKey = core.getInput('client_key').trim()
-  const tlsAuthKey = core.getInput('tls_auth_key').trim()
+  const configFile = core.getInput("config_file").trim();
+  const username = core.getInput("username").trim();
+  const password = core.getInput("password").trim();
+  const clientKey = core.getInput("client_key").trim();
+  const tlsAuthKey = core.getInput("tls_auth_key").trim();
 
   if (!fs.existsSync(configFile)) {
-    throw new Error(`config file '${configFile}' not found`)
+    throw new Error(`config file '${configFile}' not found`);
   }
 
   // 1. Configure client
 
-  fs.appendFileSync(configFile, '\n# ----- modified by action -----\n')
+  fs.appendFileSync(configFile, "\n# ----- modified by action -----\n");
 
   // username & password auth
   if (username && password) {
-    fs.appendFileSync(configFile, 'auth-user-pass up.txt\n')
-    fs.writeFileSync('up.txt', [username, password].join('\n'))
+    fs.appendFileSync(configFile, "auth-user-pass up.txt\n");
+    fs.writeFileSync("up.txt", [username, password].join("\n"), { mode: 0o600 });
   }
 
   // client certificate auth
   if (clientKey) {
-    fs.appendFileSync(configFile, 'key client.key\n')
-    fs.writeFileSync('client.key', clientKey)
+    fs.appendFileSync(configFile, "key client.key\n");
+    fs.writeFileSync("client.key", clientKey, { mode: 0o600 });
   }
 
   if (tlsAuthKey) {
-    fs.appendFileSync(configFile, 'tls-auth ta.key 1\n')
-    fs.writeFileSync('ta.key', tlsAuthKey)
+    fs.appendFileSync(configFile, "tls-auth ta.key 1\n");
+    fs.writeFileSync("ta.key", tlsAuthKey, { mode: 0o600 });
   }
 
-  core.info('========== begin configuration ==========')
-  core.info(fs.readFileSync(configFile, 'utf8'))
-  core.info('=========== end configuration ===========')
+  core.info("========== begin configuration ==========");
+  core.info(fs.readFileSync(configFile, "utf8"));
+  core.info("=========== end configuration ===========");
 
   // 2. Run openvpn
 
   // prepare log file
-  fs.writeFileSync('openvpn.log', '')
-  const tail = new Tail('openvpn.log')
+  fs.writeFileSync("openvpn.log", "");
+  const tail = new Tail("openvpn.log");
 
   try {
-    exec(`sudo openvpn --config ${configFile} --daemon --log openvpn.log --writepid openvpn.pid`)
+    exec(`sudo openvpn --config ${configFile} --daemon --log openvpn.log --writepid openvpn.pid`);
   } catch (error) {
-    core.error(fs.readFileSync('openvpn.log', 'utf8'))
-    tail.unwatch()
-    throw error
+    core.error(fs.readFileSync("openvpn.log", "utf8"));
+    tail.unwatch();
+    throw error;
   }
 
-  tail.on('line', (data) => {
-    core.info(data)
-    if (data.includes('Initialization Sequence Completed')) {
-      tail.unwatch()
-      clearTimeout(timer)
-      const pid = fs.readFileSync('openvpn.pid', 'utf8').trim()
-      core.info(`VPN connected successfully. Daemon PID: ${pid}`)
-      callback(pid)
+  tail.on("line", (data) => {
+    core.info(data);
+    if (data.includes("Initialization Sequence Completed")) {
+      tail.unwatch();
+      clearTimeout(timer);
+      const pid = fs.readFileSync("openvpn.pid", "utf8").trim();
+      core.info(`VPN connected successfully. Daemon PID: ${pid}`);
+      callback(pid);
     }
-  })
+  });
 
   const timer = setTimeout(() => {
-    core.setFailed('VPN connection failed.')
-    tail.unwatch()
-  }, 15000)
-}
+    core.setFailed("VPN connection failed.");
+    tail.unwatch();
+  }, 15000);
+};
 
-module.exports = run
+module.exports = run;
 
 
 /***/ }),
@@ -868,22 +868,22 @@ module.exports = run
 /***/ 303:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const core = __webpack_require__(186)
-const exec = __webpack_require__(264)
+const core = __webpack_require__(186);
+const exec = __webpack_require__(264);
 
 const run = (pid) => {
   if (!pid) {
-    return
+    return;
   }
   try {
     // suppress warning even if the process already killed
-    exec(`sudo kill ${pid} || true`)
+    exec(`sudo kill ${pid} || true`);
   } catch (error) {
-    core.warning(error.message)
+    core.warning(error.message);
   }
-}
+};
 
-module.exports = run
+module.exports = run;
 
 
 /***/ }),
