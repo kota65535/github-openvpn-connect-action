@@ -10,7 +10,7 @@ on:
 
 
 jobs:
-  hello_world_job:
+  test:
     runs-on: ubuntu-latest
     name: Typical Usage of OpenVPN
     steps:
