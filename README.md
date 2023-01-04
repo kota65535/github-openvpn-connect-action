@@ -6,9 +6,9 @@ GitHub Action for connecting to OpenVPN server.
 
 ### General Inputs
 
-| Name | Description | Required |
-| --- | --- | --- | 
-| `config_file` | Location of OpenVPN client config file | yes |
+| Name          | Description                            | Required |
+|---------------|----------------------------------------|----------|
+| `config_file` | Location of OpenVPN client config file | yes      |
 
 ### Authentication Inputs
 
@@ -18,12 +18,12 @@ Supported authentication methods:
 - Client certificate auth
 - Both of them
 
-| Name | Description | Required when | 
-| --- | --- | --- | 
-| `username` | Username | Username-password auth |
-| `password` | Password | Username-password auth |
-| `client_key` | Local peer's private key | Client certificate auth |
-| `tls_auth_key` | Pre-shared secret for TLS-auth HMAC signature | Optional |
+| Name           | Description                                   | Required when           | 
+|----------------|-----------------------------------------------|-------------------------|
+| `username`     | Username                                      | Username-password auth  |
+| `password`     | Password                                      | Username-password auth  |
+| `client_key`   | Local peer's private key                      | Client certificate auth |
+| `tls_auth_key` | Pre-shared secret for TLS-auth HMAC signature | Optional                |
 
 **Note: It is strongly recommended that you provide all credentials
 via [encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets).**
