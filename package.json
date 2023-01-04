@@ -14,8 +14,8 @@
     "url": "git+https://github.com/kota65535/github-openvpn-connect-action.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Tomohiko Ozawa <kota65535@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kota65535/github-openvpn-connect-action/issues"
   },
