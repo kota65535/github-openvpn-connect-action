@@ -49,4 +49,3 @@ All authentication inputs should be provided by encrypted secrets environment va
         run: ./gradlew clean build
       # The openvpn process is automatically terminated in post-action phase
 ```
-
