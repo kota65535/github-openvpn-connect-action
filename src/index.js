@@ -2,11 +2,11 @@ const core = require("@actions/core");
 const main = require("./main");
 const post = require("./post");
 
-const isPost = !!process.env.STATE_isPost;
+const isPost = core.getState("isPost");
 
 if (isPost) {
   // cleanup
-  const pid = process.env.STATE_pid;
+  const pid = core.getState("pid");
   try {
     post(pid);
   } catch (error) {
