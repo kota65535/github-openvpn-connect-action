@@ -20,14 +20,13 @@ jobs:
   
   release:
     runs-on: ubuntu-latest
-    name: Release
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Get major version
+      - name: Configure git
         run: |
-          set -x
-          echo "MAJOR_VERSION=$(perl -ne 'print $1 if /^(.*?)\.(.*?)\.(.*?)$/' <<< '${{ github.event.inputs.version }}')" >> $GITHUB_ENV
+          git config --global user.name "kota65535"
+          git config --global user.email "kota65535@gmail.com"
       - name: Run npm version
         run: |
           set -x
@@ -35,7 +34,8 @@ jobs:
       - name: Update the major version tag
         run: |
           set -x
-          git tag -f v${{ env.MAJOR_VERSION }}
+          echo "MAJOR_VERSION=$(perl -ne 'print $1 if /^(.*?)\.(.*?)\.(.*?)$/' <<< '${{ github.event.inputs.version }}')"
+          git tag -f v${MAJOR_VERSION}
       - name: Push them
         run: |
           set -x
