@@ -756,7 +756,6 @@ module.exports = exec;
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 const core = __webpack_require__(186);
-const coreCommand = __webpack_require__(241);
 const main = __webpack_require__(713);
 const post = __webpack_require__(303);
 
@@ -773,12 +772,12 @@ if (isPost) {
 } else {
   // main
   try {
-    main((pid) => coreCommand.issueCommand("save-state", { name: "pid" }, pid));
+    main((pid) => core.saveState("pid", pid));
   } catch (error) {
     core.setFailed(error.message);
   } finally {
     // cf. https://github.com/actions/checkout/blob/main/src/state-helper.ts
-    coreCommand.issueCommand("save-state", { name: "isPost" }, "true");
+    core.saveState("isPost", "true");
   }
 }
 
