@@ -4,11 +4,11 @@ const exec = require("./exec");
 const Tail = require("tail").Tail;
 
 const run = (callback) => {
-  const configFile = core.getInput("config_file", { required: true }).trim();
-  const username = core.getInput("username").trim();
-  const password = core.getInput("password").trim();
-  const clientKey = core.getInput("client_key").trim();
-  const tlsAuthKey = core.getInput("tls_auth_key").trim();
+  const configFile = core.getInput("config_file", { required: true });
+  const username = core.getInput("username");
+  const password = core.getInput("password");
+  const clientKey = core.getInput("client_key");
+  const tlsAuthKey = core.getInput("tls_auth_key");
 
   if (!fs.existsSync(configFile)) {
     throw new Error(`config file '${configFile}' not found`);
