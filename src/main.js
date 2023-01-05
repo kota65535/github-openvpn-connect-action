@@ -4,7 +4,7 @@ const exec = require("./exec");
 const Tail = require("tail").Tail;
 
 const run = (callback) => {
-  const configFile = core.getInput("config_file").trim();
+  const configFile = core.getInput("config_file", { required: true }).trim();
   const username = core.getInput("username").trim();
   const password = core.getInput("password").trim();
   const clientKey = core.getInput("client_key").trim();
