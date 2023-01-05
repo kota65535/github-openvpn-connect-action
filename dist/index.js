@@ -3167,7 +3167,7 @@ const exec = __nccwpck_require__(264);
 const Tail = (__nccwpck_require__(824)/* .Tail */ .x);
 
 const run = (callback) => {
-  const configFile = core.getInput("config_file").trim();
+  const configFile = core.getInput("config_file", { required: true }).trim();
   const username = core.getInput("username").trim();
   const password = core.getInput("password").trim();
   const clientKey = core.getInput("client_key").trim();
