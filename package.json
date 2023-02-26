@@ -1,25 +1,25 @@
 {
   "name": "github-openvpn-connect-action",
   "version": "2.0.2",
-  "description": "",
-  "main": "src/index.js",
-  "scripts": {
-    "prepare": "husky install",
-    "build": "ncc build src/index.js",
-    "lint": "eslint --fix \"src/**/*.js\"",
-    "format": "prettier --write \"src/**/*.js\""
+  "description": "GitHub Action for connecting to OpenVPN server",
+  "keywords": ["github", "actions"],
+  "homepage": "https://github.com/kota65535/github-openvpn-connect-action#readme",
+  "bugs": {
+    "url": "https://github.com/kota65535/github-openvpn-connect-action/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kota65535/github-openvpn-connect-action.git"
   },
-  "keywords": [],
-  "author": "Tomohiko Ozawa <kota65535@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kota65535/github-openvpn-connect-action/issues"
+  "author": "Tomohiko Ozawa <kota65535@gmail.com>",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "ncc build src/index.js",
+    "format": "prettier --write \"src/**/*.js\"",
+    "lint": "eslint --fix \"src/**/*.js\"",
+    "prepare": "husky install"
   },
-  "homepage": "https://github.com/kota65535/github-openvpn-connect-action#readme",
   "dependencies": {
     "@actions/core": "1.10.0",
     "@actions/github": "5.1.1",
