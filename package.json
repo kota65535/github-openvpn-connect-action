@@ -24,14 +24,14 @@
     "@actions/core": "1.10.0",
     "@actions/github": "5.1.1",
     "shelljs.exec": "1.1.8",
-    "tail": "2.2.5"
+    "tail": "2.2.6"
   },
   "devDependencies": {
-    "@vercel/ncc": "0.36.0",
-    "eslint": "8.31.0",
-    "eslint-config-prettier": "8.6.0",
+    "@vercel/ncc": "0.36.1",
+    "eslint": "8.39.0",
+    "eslint-config-prettier": "8.8.0",
     "eslint-config-standard": "17.0.0",
     "husky": "8.0.3",
-    "prettier": "2.8.1"
+    "prettier": "2.8.8"
   }
 }
