@@ -32,6 +32,6 @@
     "eslint-config-prettier": "8.8.0",
     "eslint-config-standard": "17.0.0",
     "husky": "8.0.3",
-    "prettier": "2.8.8"
+    "prettier": "3.0.3"
   }
 }
