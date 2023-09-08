@@ -46,7 +46,7 @@ via [encrypted secrets](https://docs.github.com/en/actions/security-guides/encry
       - name: Connect to VPN
         uses: "kota65535/github-openvpn-connect-action@v2"
         with:
-          config_file: ./github/workflows/client.ovpn
+          config_file: .github/workflows/client.ovpn
           username: ${{ secrets.OVPN_USERNAME }}
           password: ${{ secrets.OVPN_PASSWORD }}
           client_key: ${{ secrets.OVPN_CLIENT_KEY }}
