@@ -16,6 +16,9 @@ inputs:
   tls_auth_key:
     description: "Pre-shared secret for TLS-auth HMAC signature"
     required: false
+  tls_crypt_v2_key:
+    description: "Pre-shared secret for tls-crypt-v2"
+    required: false
   client_key:
     description: "Local peer's private key"
     required: false
