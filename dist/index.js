@@ -2007,8 +2007,12 @@ class Tail extends events.EventEmitter {
      */
     getPositionAtNthLine(nLines) {
         const { size } = fs.statSync(this.filename);
-        const fd = fs.openSync(this.filename, 'r');
 
+        if (size === 0) {
+            return 0;
+        }
+        
+        const fd = fs.openSync(this.filename, 'r');
         // Start from the end of the file and work backwards in specific chunks
         let currentReadPosition = size;
         const chunkSizeBytes = Math.min(1024, size);
@@ -3167,11 +3171,13 @@ const exec = __nccwpck_require__(264);
 const Tail = (__nccwpck_require__(824)/* .Tail */ .x);
 
 const run = (callback) => {
-  const configFile = core.getInput("config_file").trim();
-  const username = core.getInput("username").trim();
-  const password = core.getInput("password").trim();
-  const clientKey = core.getInput("client_key").trim();
-  const tlsAuthKey = core.getInput("tls_auth_key").trim();
+  const configFile = core.getInput("config_file", { required: true });
+  const username = core.getInput("username");
+  const password = core.getInput("password");
+  const clientKey = core.getInput("client_key");
+  const tlsAuthKey = core.getInput("tls_auth_key");
+  const tlsCryptKey = core.getInput("tls_crypt_key");
+  const tlsCryptV2Key = core.getInput("tls_crypt_v2_key");
 
   if (!fs.existsSync(configFile)) {
     throw new Error(`config file '${configFile}' not found`);
@@ -3196,6 +3202,16 @@ const run = (callback) => {
   if (tlsAuthKey) {
     fs.appendFileSync(configFile, "tls-auth ta.key 1\n");
     fs.writeFileSync("ta.key", tlsAuthKey, { mode: 0o600 });
+  }
+  
+  if (tlsCryptKey) {
+    fs.appendFileSync(configFile, "tls-crypt tc.key 1\n");
+    fs.writeFileSync("tc.key", tlsCryptKey, { mode: 0o600 });
+  }
+
+  if (tlsCryptV2Key) {
+    fs.appendFileSync(configFile, "tls-crypt-v2 tcv2.key 1\n");
+    fs.writeFileSync("tcv2.key", tlsCryptV2Key, { mode: 0o600 });
   }
 
   core.info("========== begin configuration ==========");
@@ -3399,15 +3415,14 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const core = __nccwpck_require__(186);
-const coreCommand = __nccwpck_require__(241);
 const main = __nccwpck_require__(713);
 const post = __nccwpck_require__(303);
 
-const isPost = !!process.env.STATE_isPost;
+const isPost = core.getState("isPost");
 
 if (isPost) {
   // cleanup
-  const pid = process.env.STATE_pid;
+  const pid = core.getState("pid");
   try {
     post(pid);
   } catch (error) {
@@ -3416,12 +3431,12 @@ if (isPost) {
 } else {
   // main
   try {
-    main((pid) => coreCommand.issueCommand("save-state", { name: "pid" }, pid));
+    main((pid) => core.saveState("pid", pid));
   } catch (error) {
     core.setFailed(error.message);
   } finally {
     // cf. https://github.com/actions/checkout/blob/main/src/state-helper.ts
-    coreCommand.issueCommand("save-state", { name: "isPost" }, "true");
+    core.saveState("isPost", "true");
   }
 }
 

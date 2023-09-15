@@ -18,15 +18,21 @@ Supported authentication methods:
 - Client certificate auth
 - Both of them
 
-| Name           | Description                                   | Required when           | 
-|----------------|-----------------------------------------------|-------------------------|
-| `username`     | Username                                      | Username-password auth  |
-| `password`     | Password                                      | Username-password auth  |
-| `client_key`   | Local peer's private key                      | Client certificate auth |
-| `tls_auth_key` | Pre-shared secret for TLS-auth HMAC signature | Optional                |
+| Name               | Description                        | Required when           | 
+|--------------------|------------------------------------|-------------------------|
+| `username`         | Username                           | Username-password auth  |
+| `password`         | Password                           | Username-password auth  |
+| `client_key`       | Local peer's private key           | Client certificate auth |
+| `tls_auth_key`     | Pre-shared group key for TLS Auth  | Optional                |
+| `tls_crypt_key`    | Pre-shared group key for TLS Crypt | Optional                |
+| `tls_crypt_v2_key` | Per-client key for TLS Crypt V2    | Optional                |
 
-**Note: It is strongly recommended that you provide all credentials
+> **Note: It is strongly recommended that you provide all credentials
 via [encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets).**
+
+When providing TLS keys, you should provide *only one of* either `tls_auth_key`, `tls_crypt_key` or `tls_crypt_v2_key`.
+You can determine which by checking the value of your key and looking in the header line. 
+[See the docs for more info about TLS in OpenVPN](https://openvpn.net/vpn-server-resources/tls-control-channel-security-in-openvpn-access-server)
 
 ## Usage
 
@@ -46,7 +52,7 @@ via [encrypted secrets](https://docs.github.com/en/actions/security-guides/encry
       - name: Connect to VPN
         uses: "kota65535/github-openvpn-connect-action@v2"
         with:
-          config_file: ./github/workflows/client.ovpn
+          config_file: .github/workflows/client.ovpn
           username: ${{ secrets.OVPN_USERNAME }}
           password: ${{ secrets.OVPN_PASSWORD }}
           client_key: ${{ secrets.OVPN_CLIENT_KEY }}
