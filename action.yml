@@ -14,10 +14,13 @@ inputs:
     description: "Password"
     required: false
   tls_auth_key:
-    description: "Pre-shared secret for TLS-auth HMAC signature"
+    description: "Pre-shared group key for TLS Auth"
+    required: false
+  tls_crypt_key:
+    description: "Pre-shared group key for TLS Crypt"
     required: false
   tls_crypt_v2_key:
-    description: "Pre-shared secret for tls-crypt-v2"
+    description: "Per-client key for TLS Crypt V2"
     required: false
   client_key:
     description: "Local peer's private key"

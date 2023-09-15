@@ -35,6 +35,6 @@ jobs:
           username: ${{ secrets.OVPN_USERNAME }}
           password: ${{ secrets.OVPN_PASSWORD }}
           client_key: ${{ secrets.OVPN_CLIENT_KEY }}
-          tls_auth_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
+          tls_crypt_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
       - name: Check if connected
         run: curl -v http://172.20.4.173:8080
