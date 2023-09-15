@@ -1,8 +1,11 @@
 {
   "name": "github-openvpn-connect-action",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "GitHub Action for connecting to OpenVPN server",
-  "keywords": ["github", "actions"],
+  "keywords": [
+    "github",
+    "actions"
+  ],
   "homepage": "https://github.com/kota65535/github-openvpn-connect-action#readme",
   "bugs": {
     "url": "https://github.com/kota65535/github-openvpn-connect-action/issues"
