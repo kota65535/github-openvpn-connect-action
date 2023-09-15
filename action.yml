@@ -19,6 +19,9 @@ inputs:
   tls_crypt_key:
     description: "TLS-crypt pre-shared group key"
     required: false
+  tls_crypt_v2_key:
+    description: "Pre-shared secret for tls-crypt-v2"
+    required: false
   client_key:
     description: "Local peer's private key"
     required: false
