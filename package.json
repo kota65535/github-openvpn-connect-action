@@ -24,16 +24,16 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@actions/core": "1.10.0",
+    "@actions/core": "1.10.1",
     "@actions/github": "5.1.1",
     "shelljs.exec": "1.1.8",
     "tail": "2.2.6"
   },
   "devDependencies": {
-    "@vercel/ncc": "0.36.1",
-    "eslint": "8.39.0",
-    "eslint-config-prettier": "8.8.0",
-    "eslint-config-standard": "17.0.0",
+    "@vercel/ncc": "0.38.0",
+    "eslint": "8.49.0",
+    "eslint-config-prettier": "8.10.0",
+    "eslint-config-standard": "17.1.0",
     "husky": "8.0.3",
     "prettier": "3.0.3"
   }
