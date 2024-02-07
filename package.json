@@ -1,6 +1,6 @@
 {
   "name": "github-openvpn-connect-action",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "GitHub Action for connecting to OpenVPN server",
   "keywords": [
     "github",
