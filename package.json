@@ -21,7 +21,7 @@
     "build": "ncc build src/index.js",
     "format": "prettier --write \"src/**/*.js\"",
     "lint": "eslint --fix \"src/**/*.js\"",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@actions/core": "1.10.1",
