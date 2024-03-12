@@ -1,6 +1,6 @@
 {
   "name": "github-openvpn-connect-action",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "GitHub Action for connecting to OpenVPN server",
   "keywords": [
     "github",
@@ -21,20 +21,20 @@
     "build": "ncc build src/index.js",
     "format": "prettier --write \"src/**/*.js\"",
     "lint": "eslint --fix \"src/**/*.js\"",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
-    "@actions/core": "1.10.0",
-    "@actions/github": "5.1.1",
+    "@actions/core": "1.10.1",
+    "@actions/github": "6.0.0",
     "shelljs.exec": "1.1.8",
     "tail": "2.2.6"
   },
   "devDependencies": {
-    "@vercel/ncc": "0.36.1",
-    "eslint": "8.39.0",
-    "eslint-config-prettier": "8.8.0",
-    "eslint-config-standard": "17.0.0",
-    "husky": "8.0.3",
-    "prettier": "2.8.8"
+    "@vercel/ncc": "0.38.1",
+    "eslint": "8.56.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-config-standard": "17.1.0",
+    "husky": "9.0.10",
+    "prettier": "3.2.5"
   }
 }
