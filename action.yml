@@ -1,31 +1,34 @@
-name: "OpenVPN-Connect"
-description: "connect to OpenVPN server"
+name: 'OpenVPN-Connect'
+description: 'connect to OpenVPN server'
 branding:
-  icon: "lock"
-  color: "green"
+  icon: 'lock'
+  color: 'green'
 inputs:
   config_file:
-    description: "Location of OpenVPN client config file"
+    description: 'Location of OpenVPN client config file'
     required: true
   username:
-    description: "Username"
+    description: 'Username'
     required: false
   password:
-    description: "Password"
+    description: 'Password'
     required: false
   tls_auth_key:
-    description: "Pre-shared group key for TLS Auth"
+    description: 'Pre-shared group key for TLS Auth'
     required: false
   tls_crypt_key:
-    description: "Pre-shared group key for TLS Crypt"
+    description: 'Pre-shared group key for TLS Crypt'
     required: false
   tls_crypt_v2_key:
-    description: "Per-client key for TLS Crypt V2"
+    description: 'Per-client key for TLS Crypt V2'
     required: false
   client_key:
     description: "Local peer's private key"
     required: false
+  client_pass:
+    description: "Local peer's private key's passphrase"
+    required: false
 runs:
-  using: "node20"
-  main: "dist/index.js"
-  post: "dist/index.js"
+  using: 'node20'
+  main: 'dist/index.js'
+  post: 'dist/index.js'

@@ -25192,6 +25192,7 @@ const run = (callback) => {
   const username = core.getInput("username");
   const password = core.getInput("password");
   const clientKey = core.getInput("client_key");
+  const clientPass = core.getInput("client_pass");
   const tlsAuthKey = core.getInput("tls_auth_key");
   const tlsCryptKey = core.getInput("tls_crypt_key");
   const tlsCryptV2Key = core.getInput("tls_crypt_v2_key");
@@ -25214,6 +25215,11 @@ const run = (callback) => {
   if (clientKey) {
     fs.appendFileSync(configFile, "key client.key\n");
     fs.writeFileSync("client.key", clientKey, { mode: 0o600 });
+  }
+  // if passphrase given
+  if (clientPass) {
+    fs.appendFileSync(configFile, "askpass pass.txt\n");
+    fs.writeFileSync("pass.txt", clientPass, { mode: 0o600 });
   }
 
   if (tlsAuthKey) {
