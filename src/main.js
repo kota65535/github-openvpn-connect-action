@@ -5,8 +5,11 @@ const Tail = require("tail").Tail;
 
 const run = (callback) => {
   const configFile = core.getInput("config_file", { required: true });
+  const host = core.getInput("host");
   const username = core.getInput("username");
   const password = core.getInput("password");
+  const port = core.getInput("port");
+  const protocol = core.getInput("protocol");
   const clientKey = core.getInput("client_key");
   const clientPass = core.getInput("client_pass");
   const tlsAuthKey = core.getInput("tls_auth_key");
@@ -20,6 +23,11 @@ const run = (callback) => {
   // 1. Configure client
 
   fs.appendFileSync(configFile, "\n# ----- modified by action -----\n");
+
+  // remote setup
+  if (host && port && protocol) {
+    fs.appendFileSync(configFile, `remote ${host} ${port} ${protocol}\n`);
+  }
 
   // username & password auth
   if (username && password) {
@@ -58,34 +66,7 @@ const run = (callback) => {
   core.info("=========== end configuration ===========");
 
   // 2. Run openvpn
-
-  // prepare log file
-  fs.writeFileSync("openvpn.log", "");
-  const tail = new Tail("openvpn.log");
-
-  try {
-    exec(`sudo openvpn --config ${configFile} --daemon --log openvpn.log --writepid openvpn.pid`);
-  } catch (error) {
-    core.error(fs.readFileSync("openvpn.log", "utf8"));
-    tail.unwatch();
-    throw error;
-  }
-
-  tail.on("line", (data) => {
-    core.info(data);
-    if (data.includes("Initialization Sequence Completed")) {
-      tail.unwatch();
-      clearTimeout(timer);
-      const pid = fs.readFileSync("openvpn.pid", "utf8").trim();
-      core.info(`VPN connected successfully. Daemon PID: ${pid}`);
-      callback(pid);
-    }
-  });
-
-  const timer = setTimeout(() => {
-    core.setFailed("VPN connection failed.");
-    tail.unwatch();
-  }, 15000);
+  exec(`sudo openvpn --config ${configFile} --daemon --writepid openvpn.pid`);
 };
 
 module.exports = run;

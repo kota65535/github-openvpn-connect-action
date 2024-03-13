@@ -7,12 +7,23 @@ inputs:
   config_file:
     description: 'Location of OpenVPN client config file'
     required: true
+  host:
+    description: 'Host'
+    required: false
   username:
     description: 'Username'
     required: false
   password:
     description: 'Password'
     required: false
+  port:
+    description: 'Port'
+    required: false
+    default: '1194'
+  protocol:
+    description: 'Protocol'
+    required: false
+    default: 'udp4'
   tls_auth_key:
     description: 'Pre-shared group key for TLS Auth'
     required: false
@@ -27,6 +38,12 @@ inputs:
     required: false
   client_pass:
     description: "Local peer's private key's passphrase"
+    required: false
+  ca:
+    description: 'CA that signed the private key'
+    required: false
+  cert:
+    description: "CA's signing certificate"
     required: false
 runs:
   using: 'node20'

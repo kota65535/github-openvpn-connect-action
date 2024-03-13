@@ -6,16 +6,16 @@
     "github",
     "actions"
   ],
-  "homepage": "https://github.com/kota65535/github-openvpn-connect-action#readme",
+  "homepage": "https://github.com/Morriz/github-openvpn-connect-action#readme",
   "bugs": {
-    "url": "https://github.com/kota65535/github-openvpn-connect-action/issues"
+    "url": "https://github.com/Morriz/github-openvpn-connect-action/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kota65535/github-openvpn-connect-action.git"
+    "url": "git+https://github.com/Morriz/github-openvpn-connect-action.git"
   },
   "license": "MIT",
-  "author": "Tomohiko Ozawa <kota65535@gmail.com>",
+  "authors": [ "Tomohiko Ozawa <Morriz@gmail.com>, Maurice Faber<morriz@idiotz.nl>" ],
   "main": "src/index.js",
   "scripts": {
     "build": "ncc build src/index.js",
