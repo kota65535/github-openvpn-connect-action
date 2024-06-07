@@ -11,6 +11,7 @@ const run = (callback) => {
   const tlsAuthKey = core.getInput("tls_auth_key");
   const tlsCryptKey = core.getInput("tls_crypt_key");
   const tlsCryptV2Key = core.getInput("tls_crypt_v2_key");
+  const echoConfig = core.getInput("echo_config");
 
   if (!fs.existsSync(configFile)) {
     throw new Error(`config file '${configFile}' not found`);
@@ -47,10 +48,11 @@ const run = (callback) => {
     fs.writeFileSync("tcv2.key", tlsCryptV2Key, { mode: 0o600 });
   }
 
-  core.info("========== begin configuration ==========");
-  core.info(fs.readFileSync(configFile, "utf8"));
-  core.info("=========== end configuration ===========");
-
+  if (echoConfig === "true") {
+    core.info("========== begin configuration ==========");
+    core.info(fs.readFileSync(configFile, "utf8"));
+    core.info("=========== end configuration ===========");
+  }
   // 2. Run openvpn
 
   // prepare log file

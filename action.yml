@@ -25,6 +25,10 @@ inputs:
   client_key:
     description: "Local peer's private key"
     required: false
+  echo_config:
+    description: "Print the OpenVPN configuration file"
+    required: false
+    default: "true"
 runs:
   using: "node20"
   main: "dist/index.js"

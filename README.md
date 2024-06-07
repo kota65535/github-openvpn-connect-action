@@ -9,6 +9,7 @@ GitHub Action for connecting to OpenVPN server.
 | Name          | Description                            | Required |
 |---------------|----------------------------------------|----------|
 | `config_file` | Location of OpenVPN client config file | yes      |
+| `echo_config` | Echo OpenVPN config file to the log    | no       |
 
 ### Authentication Inputs
 
