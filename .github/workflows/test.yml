@@ -36,5 +36,6 @@ jobs:
           password: ${{ secrets.OVPN_PASSWORD }}
           client_key: ${{ secrets.OVPN_CLIENT_KEY }}
           tls_auth_key: ${{ secrets.OVPN_TLS_AUTH_KEY }}
+          echo_config: false
       - name: Check if connected
         run: curl -v ${{ secrets.TARGET_URL }}
