@@ -25228,7 +25228,7 @@ const run = (callback) => {
   }
 
   if (tlsCryptV2Key) {
-    fs.appendFileSync(configFile, "tls-crypt-v2 tcv2.key 1\n");
+    fs.appendFileSync(configFile, "tls-crypt-v2 tcv2.key\n");
     fs.writeFileSync("tcv2.key", tlsCryptV2Key, { mode: 0o600 });
   }
 
