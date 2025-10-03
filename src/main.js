@@ -12,7 +12,7 @@ const run = (callback) => {
   const tlsCryptKey = core.getInput("tls_crypt_key");
   const tlsCryptV2Key = core.getInput("tls_crypt_v2_key");
   const echoConfig = core.getInput("echo_config");
-  const clientVersion = core.getInput("client_version") || "v2"; // uses v2 by default
+  const clientVersion = core.getInput("client_version") 
 
   if (!fs.existsSync(configFile)) {
     throw new Error(`config file '${configFile}' not found`);
