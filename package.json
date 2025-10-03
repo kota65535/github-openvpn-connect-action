@@ -30,7 +30,7 @@
     "tail": "2.2.6"
   },
   "devDependencies": {
-    "@vercel/ncc": "0.38.1",
+    "@vercel/ncc": "^0.38.1",
     "eslint": "8.56.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-config-standard": "17.1.0",
