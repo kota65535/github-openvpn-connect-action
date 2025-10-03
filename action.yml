@@ -29,6 +29,10 @@ inputs:
     description: "Print the OpenVPN configuration file"
     required: false
     default: "true"
+  client_version:
+    description: 'OpenVPN client version (v2 or v3)'
+    required: false
+    default: 'v2'
 runs:
   using: "node20"
   main: "dist/index.js"
